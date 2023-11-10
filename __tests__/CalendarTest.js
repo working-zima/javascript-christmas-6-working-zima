@@ -1,6 +1,6 @@
-import Calender from '../src/components/Calendar.js';
+import Calendar from '../src/components/Calendar.js';
 
-describe('Calender 기능 테스트', () => {
+describe('Calendar 기능 테스트', () => {
   test.each([
     [1, true],
     [2, true],
@@ -9,9 +9,19 @@ describe('Calender 기능 테스트', () => {
     [5, false],
     [6, false],
     [7, false],
-  ])('주말 확인 테스트', (date, expected) => {
-    const calender = new Calender(date);
+  ])('주말 확인', (date, expected) => {
+    const calendar = new Calendar(date);
 
-    expect(calender.isWeekend()).toBe(expected);
+    expect(calendar.isWeekend()).toBe(expected);
+  });
+
+  test.each([
+    [1, 1000],
+    [25, 3400],
+    [31, 0],
+  ])('크리스마스 디데이 할인율', (date, expected) => {
+    const calendar = new Calendar(date);
+
+    expect(calendar.calculateChristmasDiscount()).toBe(expected);
   });
 });
