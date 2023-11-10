@@ -1,5 +1,5 @@
 import Counter from './components/Counter.js';
-import Calender from './components/Calendar.js';
+import Calendar from './components/Calendar.js';
 
 class App {
   async run() {
@@ -10,7 +10,7 @@ class App {
       ['제로콜라', 1, 3000],
     ]);
 
-    const calender = new Calender(7);
+    const calendar = new Calendar();
   }
 }
 

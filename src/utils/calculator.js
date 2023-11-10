@@ -1,3 +1,7 @@
-export const multiply = (productPrice, quantity) => {
-  return productPrice * quantity;
+export const multiply = (num1, num2) => {
+  return num1 * num2;
+};
+
+export const subtract = (num1, num2) => {
+  return num1 - num2;
 };

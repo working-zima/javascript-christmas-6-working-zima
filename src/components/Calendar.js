@@ -1,3 +1,6 @@
+import { DISCOUNT_DAY } from '../constants/magicNumber.js';
+import { multiply, subtract } from '../utils/calculator.js';
+
 class Calender {
   #date;
 
@@ -6,10 +9,29 @@ class Calender {
   }
 
   isWeekend() {
-    if (new Date(2023, 11, `${this.date}`).getDay() >= 5) {
+    if (
+      new Date(
+        DISCOUNT_DAY.YEAR,
+        DISCOUNT_DAY.MONTH,
+        `${this.date}`,
+      ).getDay() >= DISCOUNT_DAY.START_OF_WEEKEND
+    ) {
       return true;
     }
     return false;
+  }
+
+  isSpecialDiscountDay() {
+    return DISCOUNT_DAY.includes(this.date);
+  }
+
+  calculateChristmasDiscount() {
+    if (!this.#isChristmasDiscountAvailable()) return 0;
+    return multiply(subtract(this.date, 1), 100) + 1000;
+  }
+
+  #isChristmasDiscountAvailable() {
+    return this.date <= DISCOUNT_DAY.CHRISTMAS;
   }
 }
 
