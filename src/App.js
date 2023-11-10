@@ -8,7 +8,8 @@ class App {
       ['초코케이크', 2, 15000],
       ['제로콜라', 1, 3000],
     ]);
-    console.log(counter.getTotalAmountBeforeDiscount());
+    counter.getTotalAmountBeforeDiscount();
+    console.log(counter.canReceiveChampagne());
   }
 }
 
