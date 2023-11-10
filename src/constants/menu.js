@@ -1,3 +1,10 @@
+export const MENU_CATEGORIES = [
+  'APPETIZERS',
+  'MAIN_DISHES',
+  'DESSERTS',
+  'DRINKS',
+];
+
 export const APPETIZERS = Object.freeze({
   양송이수프: 6000,
   타파스: 5500,
