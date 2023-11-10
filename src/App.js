@@ -1,4 +1,5 @@
 import Counter from './components/Counter.js';
+import Calender from './components/Calendar.js';
 
 class App {
   async run() {
@@ -8,8 +9,8 @@ class App {
       ['초코케이크', 2, 15000],
       ['제로콜라', 1, 3000],
     ]);
-    counter.getTotalAmountBeforeDiscount();
-    console.log(counter.canReceiveChampagne());
+
+    const calender = new Calender(7);
   }
 }
 
