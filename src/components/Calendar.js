@@ -1,15 +1,11 @@
 import { DISCOUNT_DAY } from '../constants/magicNumber.js';
-import { INFO_MESSAGE } from '../constants/messages.js';
 import { multiply, subtract } from '../utils/calculator.js';
-import InputView from '../view/InputView.js';
 
 class Calendar {
   #date;
 
-  async getDate() {
-    this.#date = Number(
-      await InputView.readDate(INFO_MESSAGE.VISITING_DATE_INFO),
-    );
+  constructor(date) {
+    this.#date = date;
   }
 
   isWeekend() {
@@ -35,7 +31,7 @@ class Calendar {
   }
 
   #isChristmasDiscountAvailable() {
-    return this.date <= DISCOUNT_DAY.CHRISTMAS;
+    return this.#date <= DISCOUNT_DAY.CHRISTMAS;
   }
 }
 
