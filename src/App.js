@@ -1,4 +1,7 @@
-import { INFO_MESSAGE } from './constants/messages.js';
+import { INFO_MESSAGE, MONTARY_UNIT, BENEFIT } from './constants/messages.js';
+import { multiply } from './utils/calculator.js';
+import { DISCOUNT_AMOUNT } from './constants/magicNumber.js';
+import { DRINKS, MENU_CATEGORIES } from './constants/menu.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 import Calendar from './components/Calendar.js';
@@ -38,36 +41,95 @@ class App {
   }
 
   #hasWeekDayDiscount() {
-    if (!this.#calendar.isWeekend() && this.#counter.countDesserts()) {
-      return true;
-    }
-    return false;
-  }
-
-  #hasWeekendDiscount() {
-    if (!this.#calendar.isWeekend() && this.#counter.countMainDishes()) {
-      return true;
-    }
-    return false;
-  }
-
-  #eventTracker() {
     if (
-      this.#counter.isTotalAmountAboveThreshold() ||
-      this.#counter.canReceiveChampagne() ||
-      this.#calendar.isChristmasDiscountAvailable() ||
-      this.#calendar.isSpecialDiscountDay() ||
-      this.#hasWeekDayDiscount() ||
-      this.#hasWeekendDiscount()
+      !this.#calendar.isWeekend() &&
+      this.#counter.countDessertsOrMainDishes(MENU_CATEGORIES.DESSERTS)
     ) {
       return true;
     }
     return false;
   }
 
+  #hasWeekendDiscount() {
+    if (
+      this.#calendar.isWeekend() &&
+      this.#counter.countDessertsOrMainDishes(MENU_CATEGORIES.MAIN_DISHES)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  static #calculateWeekDayOrWeekendDiscount(count, amount) {
+    return multiply(count, amount);
+  }
+
+  #checkChristmasDiscount(totalDiscountAmount) {
+    const christmasDiscount = this.#calendar.calculateChristmasDiscount();
+    OutputView.printBenefitsDetails(BENEFIT.CHRISTMAS_D_DAY, christmasDiscount);
+    return totalDiscountAmount + christmasDiscount;
+  }
+
+  #checkWeekDayDiscount(totalDiscountAmount) {
+    const weekDayDiscount = App.#calculateWeekDayOrWeekendDiscount(
+      this.#counter.countDessertsOrMainDishes(MENU_CATEGORIES.DESSERTS),
+      DISCOUNT_AMOUNT.WEEK_DAY_DESSERTS,
+    );
+    OutputView.printBenefitsDetails(BENEFIT.WEEKDAY, weekDayDiscount);
+    return totalDiscountAmount + weekDayDiscount;
+  }
+
+  #checkWeekendDiscount(totalDiscountAmount) {
+    const weekendDiscont = App.#calculateWeekDayOrWeekendDiscount(
+      this.#counter.countDessertsOrMainDishes(MENU_CATEGORIES.MAIN_DISHES),
+      DISCOUNT_AMOUNT.WEEKEND_MAIN,
+    );
+    OutputView.printBenefitsDetails(BENEFIT.WEEKEND, weekendDiscont);
+    return totalDiscountAmount + weekendDiscont;
+  }
+
+  static #checkSpecialDiscountDay(totalDiscountAmount) {
+    const specialDiscount = DISCOUNT_AMOUNT.SPECIAL;
+    OutputView.printBenefitsDetails(BENEFIT.SPECIAL, specialDiscount);
+    return totalDiscountAmount + specialDiscount;
+  }
+
+  static #checkChampagneDiscountDay(totalDiscountAmount) {
+    const champagneDiscount = DRINKS.샴페인;
+    OutputView.printBenefitsDetails(BENEFIT.GIFT, champagneDiscount);
+    return totalDiscountAmount + champagneDiscount;
+  }
+
+  #hasAnyEvent() {
+    let totalDiscountAmount = 0;
+    if (this.#calendar.isChristmasDiscountAvailable()) {
+      totalDiscountAmount += this.#checkChristmasDiscount();
+    }
+    if (this.#hasWeekDayDiscount()) {
+      totalDiscountAmount += this.#checkWeekDayDiscount();
+    }
+    if (this.#hasWeekendDiscount()) {
+      totalDiscountAmount += this.#checkWeekendDiscount();
+    }
+    if (this.#calendar.isSpecialDiscountDay()) {
+      totalDiscountAmount += App.#checkSpecialDiscountDay();
+    }
+    if (this.#counter.canReceiveChampagne()) {
+      totalDiscountAmount += App.#checkChampagneDiscountDay();
+    }
+    return totalDiscountAmount.toLocaleString(MONTARY_UNIT.COUNTRY);
+  }
+
+  #trackEvent() {
+    if (this.#counter.isTotalAmountAboveThreshold()) {
+      return this.#hasAnyEvent();
+    }
+    return OutputView.printInfo(BENEFIT.NOTHING);
+  }
+
   #infoAfterDiscount() {
     OutputView.printInfo(INFO_MESSAGE.BENEFITS_DETAILS);
-    this.#counter.countDesserts();
+    return this.#trackEvent();
   }
 
   #applyDiscounts() {

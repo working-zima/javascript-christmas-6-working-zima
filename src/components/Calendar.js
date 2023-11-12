@@ -22,12 +22,7 @@ class Calendar {
   }
 
   isSpecialDiscountDay() {
-    return DISCOUNT_DAY.SPECIAL.includes(this.#date);
-  }
-
-  calculateChristmasDiscount() {
-    if (!this.isChristmasDiscountAvailable()) return 0;
-    return multiply(subtract(this.#date, 1), 100) + 1000;
+    return DISCOUNT_DAY.SPECIAL_DAYS.includes(this.#date);
   }
 
   isChristmasDiscountAvailable() {
@@ -36,6 +31,11 @@ class Calendar {
 
   getOrderDate() {
     return `${DISCOUNT_DAY.MONTH + 1}월 ${this.#date}일`;
+  }
+
+  calculateChristmasDiscount() {
+    if (!this.isChristmasDiscountAvailable()) return 0;
+    return multiply(subtract(this.#date, 1), 100) + 1000;
   }
 }
 

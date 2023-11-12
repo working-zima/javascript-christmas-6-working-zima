@@ -1,5 +1,5 @@
 import { BENEFIT_MIN_AMOUNT } from '../constants/magicNumber.js';
-import { MENU_LISTS, DELIMITER, MENU_CATEGORIES } from '../constants/menu.js';
+import { MENU_LISTS, DELIMITER } from '../constants/menu.js';
 import { multiply } from '../utils/calculator.js';
 import { INFO_MESSAGE } from '../constants/messages.js';
 
@@ -45,15 +45,10 @@ class Counter {
     return false;
   }
 
-  countDesserts() {
-    return this.orderInfo.filter(order => order[2] === MENU_CATEGORIES.DESSERTS)
-      .length;
-  }
-
-  countMainDishes() {
-    return this.orderInfo.filter(
-      order => order[2] === MENU_CATEGORIES.MAIN_DISHES,
-    ).length;
+  countDessertsOrMainDishes(categories) {
+    return this.orderInfo.reduce((total, [, quantity, menuCategories]) => {
+      return total + (menuCategories === categories ? Number(quantity) : 0);
+    }, 0);
   }
 
   isTotalAmountAboveThreshold() {

@@ -7,11 +7,14 @@ export const DISCOUNT_DAY = Object.freeze({
   YEAR: 2023,
   MONTH: 11,
   START_OF_WEEKEND: 5,
-  SPECIAL: [3, 10, 17, 24, 25, 31],
+  SPECIAL_DAYS: [3, 10, 17, 24, 25, 31],
   CHRISTMAS: 25,
 });
 
 export const DISCOUNT_AMOUNT = Object.freeze({
   CHRISTMAS_START: 1000,
   CHRISTMAS_INCREASE: 100,
+  WEEK_DAY_DESSERTS: 2023,
+  WEEKEND_MAIN: 2023,
+  SPECIAL: 1000,
 });

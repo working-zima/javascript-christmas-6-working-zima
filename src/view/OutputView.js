@@ -1,21 +1,20 @@
 import { Console } from '@woowacourse/mission-utils';
 import { MONTARY_UNIT, BENEFIT } from '../constants/messages.js';
+import { addCommasToNumber } from '../utils/calculator.js';
 
 const OutputView = {
   printInfo(message) {
-    Console.print(message);
+    return Console.print(message);
   },
 
   printOrderMenu(orderMenus) {
-    orderMenus.forEach(orderMenu => {
+    return orderMenus.forEach(orderMenu => {
       Console.print(orderMenu);
     });
   },
 
   printWithMonetaryUnit(money) {
-    Console.print(
-      `${money.toLocaleString(MONTARY_UNIT.COUNTRY)}${MONTARY_UNIT.MONTARY}`,
-    );
+    return Console.print(`${addCommasToNumber(money)}${MONTARY_UNIT.MONTARY}`);
   },
 
   printReceiveChampagne(boolean) {
@@ -23,6 +22,12 @@ const OutputView = {
       return Console.print(`${BENEFIT.CHAMPAGNE}`);
     }
     return Console.print(`${BENEFIT.NOTHING}`);
+  },
+
+  printBenefitsDetails(string, number) {
+    return Console.print(
+      `${string}${addCommasToNumber(number)}${MONTARY_UNIT.MONTARY}`,
+    );
   },
 };
 
