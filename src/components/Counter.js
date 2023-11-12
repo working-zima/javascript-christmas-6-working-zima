@@ -11,22 +11,21 @@ class Counter {
     this.totalPrice = 0;
   }
 
-  // 티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1
-
   async getOrder() {
     const orders = await InputView.readMenu(INFO_MESSAGE.ORDER_MENU_INFO);
-    this.verifyOrder(orders);
+    return this.verifyOrder(orders);
   }
 
   verifyOrder(orders) {
     const splitedOrders = orders.split(',').map(order => order.split('-'));
-    this.checkCategoriesAndPrice(splitedOrders);
+    return this.checkCategoriesAndPrice(splitedOrders);
   }
 
   checkCategoriesAndPrice(splitedOrders) {
     this.#orders = splitedOrders.map(([order, quantity]) => {
       return [order, quantity, ...MENU_CATEGORIES[order]];
     });
+    return null;
   }
 
   getTotalAmountBeforeDiscount() {
