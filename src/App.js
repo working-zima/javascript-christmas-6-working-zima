@@ -27,6 +27,10 @@ class App {
   async #applyDiscounts() {
     OutputView.printInfo(INFO_MESSAGE.EVENT_PREVIEW);
     OutputView.printOrderMenu(this.#counter.getMenuAndQuantity());
+    OutputView.printInfo(INFO_MESSAGE.TOTAL_AMOUNT_BEFORE_DISCOUNT);
+    OutputView.printWithMonetaryUnit(
+      this.#counter.getTotalAmountBeforeDiscount(),
+    );
   }
 
   async run() {
