@@ -36,3 +36,7 @@ export const MENU_CATEGORIES = Object.freeze({
   레드와인: ['DRINKS', DRINKS.레드와인],
   샴페인: ['DRINKS', DRINKS.샴페인],
 });
+
+export const DELIMITER = Object.freeze({
+  MENU: ' - ',
+});
