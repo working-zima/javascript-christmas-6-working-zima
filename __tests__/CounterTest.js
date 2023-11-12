@@ -1,4 +1,5 @@
 import Counter from '../src/components/Counter';
+import { MENU_CATEGORIES } from '../src/constants/menu';
 
 describe('Counter 기능 테스트', () => {
   const order1 = '타파스-1,제로콜라-1';
@@ -54,12 +55,14 @@ describe('Counter 기능 테스트', () => {
 
   test.each([
     [order1, 0],
-    [order2, 1],
+    [order2, 2],
   ])('디저트 개수 테스트', (order, expected) => {
     const counter = new Counter(order);
     counter.verifyOrder();
 
-    const dessertsNum = counter.countDesserts();
+    const dessertsNum = counter.countDessertsOrMainDishes(
+      MENU_CATEGORIES.DESSERTS,
+    );
 
     expect(dessertsNum).toEqual(expected);
   });
@@ -71,7 +74,9 @@ describe('Counter 기능 테스트', () => {
     const counter = new Counter(order);
     counter.verifyOrder();
 
-    const MainDishesNum = counter.countMainDishes();
+    const MainDishesNum = counter.countDessertsOrMainDishes(
+      MENU_CATEGORIES.MAIN_DISHES,
+    );
 
     expect(MainDishesNum).toEqual(expected);
   });
