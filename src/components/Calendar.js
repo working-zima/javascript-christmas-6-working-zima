@@ -33,6 +33,10 @@ class Calendar {
   #isChristmasDiscountAvailable() {
     return this.#date <= DISCOUNT_DAY.CHRISTMAS;
   }
+
+  getOrderDate() {
+    return `${DISCOUNT_DAY.MONTH + 1}월 ${this.#date}일`;
+  }
 }
 
 export default Calendar;
