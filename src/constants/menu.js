@@ -38,5 +38,6 @@ export const MENU_CATEGORIES = Object.freeze({
 });
 
 export const DELIMITER = Object.freeze({
-  MENU: ' - ',
+  MENU: ',',
+  QUANTITY: '-',
 });

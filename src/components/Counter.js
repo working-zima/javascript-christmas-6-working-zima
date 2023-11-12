@@ -3,18 +3,16 @@ import { MENU_CATEGORIES, DELIMITER } from '../constants/menu.js';
 import { multiply } from '../utils/calculator.js';
 
 class Counter {
-  #orders;
-
   constructor(orders) {
-    this.#orders = orders;
+    this.orders = orders;
     this.orderInfo = [];
     this.totalPrice = 0;
   }
 
   verifyOrder() {
-    const splitedOrders = this.#orders
-      .split(',')
-      .map(order => order.split(DELIMITER.MENU));
+    const splitedOrders = this.orders.split(DELIMITER.MENU).map(order => {
+      return order.split(DELIMITER.QUANTITY);
+    });
     return this.checkCategoriesAndPrice(splitedOrders);
   }
 
