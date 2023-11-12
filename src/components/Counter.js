@@ -1,6 +1,7 @@
 import { GIFT_MIN_AMOUNT } from '../constants/magicNumber.js';
 import { MENU_CATEGORIES, DELIMITER } from '../constants/menu.js';
 import { multiply } from '../utils/calculator.js';
+import { INFO_MESSAGE } from '../constants/messages.js';
 
 class Counter {
   constructor(orders) {
@@ -21,6 +22,13 @@ class Counter {
       return [order, quantity, ...MENU_CATEGORIES[order]];
     });
     return null;
+  }
+
+  getMenuAndQuantity() {
+    const orderMenu = this.orderInfo.map(([order, quantity]) => {
+      return `${order} ${quantity}개`;
+    });
+    return [INFO_MESSAGE.ORDER_MENU, ...orderMenu];
   }
 
   getTotalAmountBeforeDiscount() {
