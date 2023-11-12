@@ -1,8 +1,8 @@
 import Counter from '../src/components/Counter';
 
 describe('Counter 기능 테스트', () => {
-  const order1 = '타파스 - 1,제로콜라 - 1';
-  const order2 = '티본스테이크 - 1,바비큐립 - 1,초코케이크 - 2,제로콜라 - 1';
+  const order1 = '타파스-1,제로콜라-1';
+  const order2 = '티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1';
   const cost1 = 8500;
   const cost2 = 142000;
 
