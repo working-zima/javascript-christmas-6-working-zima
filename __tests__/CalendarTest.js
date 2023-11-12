@@ -22,6 +22,8 @@ describe('Calendar 기능 테스트', () => {
   ])('크리스마스 디데이 할인율', (date, expected) => {
     const calendar = new Calendar(date);
 
-    expect(calendar.calculateChristmasDiscount()).toBe(expected);
+    const discountedAmount = calendar.calculateChristmasDiscount();
+
+    expect(discountedAmount).toBe(expected);
   });
 });
