@@ -51,4 +51,28 @@ describe('Counter 기능 테스트', () => {
 
     expect(orderMenu).toEqual(expected);
   });
+
+  test.each([
+    [order1, 0],
+    [order2, 1],
+  ])('디저트 개수 테스트', (order, expected) => {
+    const counter = new Counter(order);
+    counter.verifyOrder();
+
+    const dessertsNum = counter.countDesserts();
+
+    expect(dessertsNum).toEqual(expected);
+  });
+
+  test.each([
+    [order1, 0],
+    [order2, 2],
+  ])('메인 개수 테스트', (order, expected) => {
+    const counter = new Counter(order);
+    counter.verifyOrder();
+
+    const MainDishesNum = counter.countMainDishes();
+
+    expect(MainDishesNum).toEqual(expected);
+  });
 });
