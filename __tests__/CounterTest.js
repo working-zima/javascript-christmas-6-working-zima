@@ -30,4 +30,25 @@ describe('Counter 기능 테스트', () => {
 
     expect(canReceiveChampagne).toBe(expected);
   });
+
+  test.each([
+    [order1, ['<주문 메뉴>', '타파스 1개', '제로콜라 1개']],
+    [
+      order2,
+      [
+        '<주문 메뉴>',
+        '티본스테이크 1개',
+        '바비큐립 1개',
+        '초코케이크 2개',
+        '제로콜라 1개',
+      ],
+    ],
+  ])('주문 메뉴 테스트', (order, expected) => {
+    const counter = new Counter(order);
+    counter.verifyOrder();
+
+    const orderMenu = counter.getMenuAndQuantity();
+
+    expect(orderMenu).toEqual(expected);
+  });
 });
