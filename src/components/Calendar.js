@@ -22,7 +22,7 @@ class Calendar {
   }
 
   isSpecialDiscountDay() {
-    return DISCOUNT_DAY.includes(this.#date);
+    return DISCOUNT_DAY.SPECIAL.includes(this.#date);
   }
 
   calculateChristmasDiscount() {
