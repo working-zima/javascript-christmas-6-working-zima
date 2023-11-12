@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import { MONTARY_UNIT } from '../constants/messages.js';
+import { MONTARY_UNIT, BENEFIT } from '../constants/messages.js';
 
 const OutputView = {
   printInfo(message) {
@@ -16,6 +16,13 @@ const OutputView = {
     Console.print(
       `${money.toLocaleString(MONTARY_UNIT.COUNTRY)}${MONTARY_UNIT.MONTARY}`,
     );
+  },
+
+  printReceiveChampagne(boolean) {
+    if (boolean) {
+      return Console.print(`${BENEFIT.CHAMPAGNE}`);
+    }
+    return Console.print(`${BENEFIT.NOTHING}`);
   },
 };
 

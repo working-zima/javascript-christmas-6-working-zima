@@ -6,9 +6,16 @@ export const INFO_MESSAGE = Object.freeze({
   EVENT_PREVIEW: '우테코 식당에서 받을 이벤트 혜택 미리 보기!\n',
   ORDER_MENU: '<주문 메뉴>',
   TOTAL_AMOUNT_BEFORE_DISCOUNT: '\n<할인 전 총주문 금액>',
+  GIFT_MENU: '\n<증정 메뉴>',
+  BENEFITS_DETAILS: '\n<혜택 내역>',
 });
 
 export const MONTARY_UNIT = Object.freeze({
   COUNTRY: 'ko-KR',
   MONTARY: '원',
+});
+
+export const BENEFIT = Object.freeze({
+  NOTHING: '없음',
+  CHAMPAGNE: '샴페인 1개',
 });
