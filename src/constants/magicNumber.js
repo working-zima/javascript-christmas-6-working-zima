@@ -9,3 +9,8 @@ export const DISCOUNT_DAY = Object.freeze({
   SPECIAL: [3, 10, 17, 24, 25, 31],
   CHRISTMAS: 25,
 });
+
+export const DISCOUNT_AMOUNT = Object.freeze({
+  CHRISTMAS_START: 1000,
+  CHRISTMAS_INCREASE: 100,
+});

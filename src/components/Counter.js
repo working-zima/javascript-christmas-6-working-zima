@@ -1,5 +1,5 @@
 import { GIFT_MIN_AMOUNT } from '../constants/magicNumber.js';
-import { MENU_CATEGORIES, DELIMITER } from '../constants/menu.js';
+import { MENU_LISTS, DELIMITER, MENU_CATEGORIES } from '../constants/menu.js';
 import { multiply } from '../utils/calculator.js';
 import { INFO_MESSAGE } from '../constants/messages.js';
 
@@ -19,7 +19,7 @@ class Counter {
 
   checkCategoriesAndPrice(splitedOrders) {
     this.orderInfo = splitedOrders.map(([order, quantity]) => {
-      return [order, quantity, ...MENU_CATEGORIES[order]];
+      return [order, quantity, ...MENU_LISTS[order]];
     });
     return null;
   }
@@ -43,6 +43,17 @@ class Counter {
   canReceiveChampagne() {
     if (this.totalPrice >= GIFT_MIN_AMOUNT.CHAMPAGNE) return true;
     return false;
+  }
+
+  countDesserts() {
+    return this.orderInfo.filter(order => order[2] === MENU_CATEGORIES.DESSERTS)
+      .length;
+  }
+
+  countMainDishes() {
+    return this.orderInfo.filter(
+      order => order[2] === MENU_CATEGORIES.MAIN_DISHES,
+    ).length;
   }
 }
 

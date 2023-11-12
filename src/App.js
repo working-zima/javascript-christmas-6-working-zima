@@ -1,5 +1,4 @@
 import { INFO_MESSAGE } from './constants/messages.js';
-import { DISCOUNT_DAY } from './constants/magicNumber.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 import Calendar from './components/Calendar.js';
@@ -10,32 +9,24 @@ class App {
 
   #counter;
 
-  #state;
-
-  constructor() {
-    this.#state = { date: 0, orders: '' };
-  }
-
   async #getDate() {
     const date = Number(
       await InputView.readDate(INFO_MESSAGE.VISITING_DATE_ASK),
     );
     this.#calendar = new Calendar(date);
-    this.#state.date = date;
+    return null;
   }
 
   async #getOrder() {
     const orders = await InputView.readMenu(INFO_MESSAGE.ORDER_MENU_ASK);
     this.#counter = new Counter(orders);
     this.#counter.verifyOrder();
-    this.#state.orders = orders;
+    return null;
   }
 
-  async #applyDiscounts() {
+  #infoBeforeDiscount() {
     OutputView.printInfo(
-      `${DISCOUNT_DAY.MONTH + 1}월 ${this.#state.date}일에 ${
-        INFO_MESSAGE.EVENT_PREVIEW
-      }`,
+      `${this.#calendar.getOrderDate()}에 ${INFO_MESSAGE.EVENT_PREVIEW}`,
     );
     OutputView.printOrderMenu(this.#counter.getMenuAndQuantity());
     OutputView.printInfo(INFO_MESSAGE.TOTAL_AMOUNT_BEFORE_DISCOUNT);
@@ -44,7 +35,34 @@ class App {
     );
     OutputView.printInfo(INFO_MESSAGE.GIFT_MENU);
     OutputView.printReceiveChampagne(this.#counter.canReceiveChampagne());
+  }
+
+  #hasWeekDayDiscount() {
+    if (!this.#calendar.isWeekend() && this.#counter.countDesserts()) {
+      return true;
+    }
+    return false;
+  }
+
+  #hasWeekendDiscount() {
+    if (!this.#calendar.isWeekend() && this.#counter.countMainDishes()) {
+      return true;
+    }
+    return false;
+  }
+
+  #eventTracker() {
+    this.hasWeekDayDiscount();
+  }
+
+  #infoAfterDiscount() {
     OutputView.printInfo(INFO_MESSAGE.BENEFITS_DETAILS);
+    this.#counter.countDesserts();
+  }
+
+  #applyDiscounts() {
+    this.#infoBeforeDiscount();
+    this.#infoAfterDiscount();
   }
 
   async run() {
