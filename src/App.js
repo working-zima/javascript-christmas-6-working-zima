@@ -52,7 +52,17 @@ class App {
   }
 
   #eventTracker() {
-    this.hasWeekDayDiscount();
+    if (
+      this.#counter.isTotalAmountAboveThreshold() ||
+      this.#counter.canReceiveChampagne() ||
+      this.#calendar.isChristmasDiscountAvailable() ||
+      this.#calendar.isSpecialDiscountDay() ||
+      this.#hasWeekDayDiscount() ||
+      this.#hasWeekendDiscount()
+    ) {
+      return true;
+    }
+    return false;
   }
 
   #infoAfterDiscount() {

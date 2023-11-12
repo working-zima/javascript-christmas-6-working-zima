@@ -26,11 +26,11 @@ class Calendar {
   }
 
   calculateChristmasDiscount() {
-    if (!this.#isChristmasDiscountAvailable()) return 0;
+    if (!this.isChristmasDiscountAvailable()) return 0;
     return multiply(subtract(this.#date, 1), 100) + 1000;
   }
 
-  #isChristmasDiscountAvailable() {
+  isChristmasDiscountAvailable() {
     return this.#date <= DISCOUNT_DAY.CHRISTMAS;
   }
 

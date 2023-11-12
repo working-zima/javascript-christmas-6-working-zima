@@ -1,4 +1,4 @@
-import { GIFT_MIN_AMOUNT } from '../constants/magicNumber.js';
+import { BENEFIT_MIN_AMOUNT } from '../constants/magicNumber.js';
 import { MENU_LISTS, DELIMITER, MENU_CATEGORIES } from '../constants/menu.js';
 import { multiply } from '../utils/calculator.js';
 import { INFO_MESSAGE } from '../constants/messages.js';
@@ -41,7 +41,7 @@ class Counter {
   }
 
   canReceiveChampagne() {
-    if (this.totalPrice >= GIFT_MIN_AMOUNT.CHAMPAGNE) return true;
+    if (this.totalPrice >= BENEFIT_MIN_AMOUNT.CHAMPAGNE) return true;
     return false;
   }
 
@@ -54,6 +54,10 @@ class Counter {
     return this.orderInfo.filter(
       order => order[2] === MENU_CATEGORIES.MAIN_DISHES,
     ).length;
+  }
+
+  isTotalAmountAboveThreshold() {
+    return this.totalPrice >= BENEFIT_MIN_AMOUNT.TOTAL;
   }
 }
 

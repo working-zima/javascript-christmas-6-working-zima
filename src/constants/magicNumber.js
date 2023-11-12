@@ -1,4 +1,5 @@
-export const GIFT_MIN_AMOUNT = Object.freeze({
+export const BENEFIT_MIN_AMOUNT = Object.freeze({
+  TOTAL: 10000,
   CHAMPAGNE: 120000,
 });
 
