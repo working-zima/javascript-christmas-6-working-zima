@@ -60,7 +60,7 @@ class Counter {
   }
 
   calculateTotalAmountAfterBenefits(totalBenefits) {
-    if (this.canReceiveChampagne) {
+    if (this.canReceiveChampagne()) {
       return subtract(this.totalPrice, subtract(totalBenefits, DRINKS.샴페인));
     }
     return subtract(this.totalPrice, totalBenefits);
