@@ -48,3 +48,8 @@ export const DELIMITER = Object.freeze({
   MENU: ',',
   QUANTITY: '-',
 });
+
+export const MENU_QUANTITY_RANGE = Object.freeze({
+  MIN: 1,
+  MAX: 20,
+});

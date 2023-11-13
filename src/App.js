@@ -1,4 +1,4 @@
-import { INFO_MESSAGE, MONTARY_UNIT, BENEFIT } from './constants/messages.js';
+import { INFO_MESSAGE, BENEFIT } from './constants/messages.js';
 import { multiply } from './utils/calculator.js';
 import { DISCOUNT_AMOUNT } from './constants/magicNumber.js';
 import { DRINKS, MENU_CATEGORIES } from './constants/menu.js';
@@ -11,6 +11,16 @@ class App {
   #calendar;
 
   #counter;
+
+  async #retryOnError(callback) {
+    try {
+      return await callback();
+    } catch (error) {
+      OutputView.printInfo(error.message);
+
+      return this.#retryOnError(callback);
+    }
+  }
 
   async #getDate() {
     const date = Number(
@@ -154,8 +164,10 @@ class App {
   }
 
   async run() {
-    await this.#getDate();
-    await this.#getOrder();
+    await this.#retryOnError(() => this.#getDate());
+    await this.#retryOnError(() => {
+      return this.#getOrder();
+    });
     this.#applyDiscounts();
   }
 }

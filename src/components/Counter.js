@@ -10,10 +10,14 @@ class Counter {
     this.totalPrice = 0;
   }
 
-  verifyOrder() {
-    const splitedOrders = this.orders.split(DELIMITER.MENU).map(order => {
+  static splitMenu(orders) {
+    return orders.split(DELIMITER.MENU).map(order => {
       return order.split(DELIMITER.QUANTITY);
     });
+  }
+
+  verifyOrder() {
+    const splitedOrders = Counter.splitMenu(this.orders);
     return this.checkCategoriesAndPrice(splitedOrders);
   }
 
