@@ -1,7 +1,7 @@
 import { BENEFIT_MIN_AMOUNT } from '../constants/magicNumber.js';
-import { MENU_LISTS, DELIMITER } from '../constants/menu.js';
-import { multiply } from '../utils/calculator.js';
-import { INFO_MESSAGE } from '../constants/messages.js';
+import { MENU_LISTS, DELIMITER, DRINKS } from '../constants/menu.js';
+import { multiply, subtract } from '../utils/calculator.js';
+import { INFO_MESSAGE, BENEFIT } from '../constants/messages.js';
 
 class Counter {
   constructor(orders) {
@@ -53,6 +53,20 @@ class Counter {
 
   isTotalAmountAboveThreshold() {
     return this.totalPrice >= BENEFIT_MIN_AMOUNT.TOTAL;
+  }
+
+  calculateTotalAmountAfterBenefits(totalBenefits) {
+    if (this.canReceiveChampagne) {
+      return subtract(this.totalPrice, subtract(totalBenefits, DRINKS.샴페인));
+    }
+    return subtract(this.totalPrice, totalBenefits);
+  }
+
+  static caculateEventBadge(totalBenefits) {
+    if (totalBenefits >= 20000) return BENEFIT.SANTA;
+    if (totalBenefits >= 10000) return BENEFIT.TREE;
+    if (totalBenefits >= 5000) return BENEFIT.STAR;
+    return BENEFIT.NOTHING;
   }
 }
 

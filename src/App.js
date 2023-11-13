@@ -103,28 +103,29 @@ class App {
   #hasAnyEvent() {
     let totalDiscountAmount = 0;
     if (this.#calendar.isChristmasDiscountAvailable()) {
-      totalDiscountAmount += this.#checkChristmasDiscount();
+      totalDiscountAmount = this.#checkChristmasDiscount(totalDiscountAmount);
     }
     if (this.#hasWeekDayDiscount()) {
-      totalDiscountAmount += this.#checkWeekDayDiscount();
+      totalDiscountAmount = this.#checkWeekDayDiscount(totalDiscountAmount);
     }
     if (this.#hasWeekendDiscount()) {
-      totalDiscountAmount += this.#checkWeekendDiscount();
+      totalDiscountAmount = this.#checkWeekendDiscount(totalDiscountAmount);
     }
     if (this.#calendar.isSpecialDiscountDay()) {
-      totalDiscountAmount += App.#checkSpecialDiscountDay();
+      totalDiscountAmount = App.#checkSpecialDiscountDay(totalDiscountAmount);
     }
     if (this.#counter.canReceiveChampagne()) {
-      totalDiscountAmount += App.#checkChampagneDiscountDay();
+      totalDiscountAmount = App.#checkChampagneDiscountDay(totalDiscountAmount);
     }
-    return totalDiscountAmount.toLocaleString(MONTARY_UNIT.COUNTRY);
+    return totalDiscountAmount;
   }
 
   #trackEvent() {
     if (this.#counter.isTotalAmountAboveThreshold()) {
       return this.#hasAnyEvent();
     }
-    return OutputView.printInfo(BENEFIT.NOTHING);
+    OutputView.printInfo(BENEFIT.NOTHING);
+    return BENEFIT.NOTHING;
   }
 
   #infoAfterDiscount() {
@@ -132,9 +133,24 @@ class App {
     return this.#trackEvent();
   }
 
+  #printTotalBenefits(totalBenefits) {
+    if (typeof totalBenefits === 'number') {
+      OutputView.printBenefitsDetails('-', totalBenefits);
+      return this.#counter.calculateTotalAmountAfterBenefits(totalBenefits);
+    }
+    OutputView.printInfo(totalBenefits);
+    return this.#counter.calculateTotalAmountAfterBenefits(0);
+  }
+
   #applyDiscounts() {
     this.#infoBeforeDiscount();
-    this.#infoAfterDiscount();
+    const totalBenefits = this.#infoAfterDiscount();
+    OutputView.printInfo(INFO_MESSAGE.TOTAL_BENEFITS);
+    const totalAmountAfterBenefits = this.#printTotalBenefits(totalBenefits);
+    OutputView.printInfo(INFO_MESSAGE.TOTAL_AMOUNT_AFTER_BENEFITS);
+    OutputView.printWithMonetaryUnit(totalAmountAfterBenefits);
+    OutputView.printInfo(INFO_MESSAGE.EVENT_BADGE);
+    OutputView.printInfo(Counter.caculateEventBadge(totalBenefits));
   }
 
   async run() {
