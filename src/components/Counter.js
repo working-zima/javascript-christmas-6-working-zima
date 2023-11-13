@@ -67,9 +67,9 @@ class Counter {
   }
 
   static caculateEventBadge(totalBenefits) {
-    if (totalBenefits >= 20000) return BENEFIT.SANTA;
-    if (totalBenefits >= 10000) return BENEFIT.TREE;
-    if (totalBenefits >= 5000) return BENEFIT.STAR;
+    if (totalBenefits >= BENEFIT_MIN_AMOUNT.SANTA) return BENEFIT.SANTA;
+    if (totalBenefits >= BENEFIT_MIN_AMOUNT.TREE) return BENEFIT.TREE;
+    if (totalBenefits >= BENEFIT_MIN_AMOUNT.STAR) return BENEFIT.STAR;
     return BENEFIT.NOTHING;
   }
 }

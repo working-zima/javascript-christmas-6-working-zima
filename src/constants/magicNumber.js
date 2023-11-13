@@ -1,6 +1,9 @@
 export const BENEFIT_MIN_AMOUNT = Object.freeze({
   TOTAL: 10000,
   CHAMPAGNE: 120000,
+  SANTA: 20000,
+  TREE: 10000,
+  STAR: 5000,
 });
 
 export const DISCOUNT_DAY = Object.freeze({
