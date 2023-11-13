@@ -1,6 +1,7 @@
 import { DISCOUNT_DAY } from '../constants/magicNumber.js';
 import { REGEX } from '../constants/regex.js';
 import { MENU_LISTS, DRINKS, MENU_QUANTITY_RANGE } from '../constants/menu.js';
+import { ERROR_MESSAGE } from '../constants/messages.js';
 import CustomError from '../error/CustomError.js';
 import Counter from '../components/Counter.js';
 
@@ -100,9 +101,7 @@ export const validator = {
   /* validation */
   validateOrderDate(value) {
     if (!this.isPositiveInteger(value) || !this.isDateInRange(value)) {
-      throw CustomError.getDate(
-        '유효하지 않은 날짜입니다. 다시 입력해 주세요.',
-      );
+      throw CustomError.getDate(ERROR_MESSAGE.DATE);
     }
   },
 
@@ -116,9 +115,7 @@ export const validator = {
       !this.isValidOrderQuantity(splitedValue) ||
       !this.isDuplicateMenus(splitedValue)
     ) {
-      throw CustomError.getOrder(
-        '유효하지 않은 주문입니다. 다시 입력해 주세요.',
-      );
+      throw CustomError.getOrder(ERROR_MESSAGE.ORDER);
     }
   },
 };

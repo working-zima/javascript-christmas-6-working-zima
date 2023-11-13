@@ -1,4 +1,4 @@
-import { DISCOUNT_DAY } from '../constants/magicNumber.js';
+import { DISCOUNT_DAY, DISCOUNT_AMOUNT } from '../constants/magicNumber.js';
 import { multiply, subtract } from '../utils/calculator.js';
 
 class Calendar {
@@ -35,7 +35,10 @@ class Calendar {
 
   calculateChristmasDiscount() {
     if (!this.isChristmasDiscountAvailable()) return 0;
-    return multiply(subtract(this.#date, 1), 100) + 1000;
+    return (
+      multiply(subtract(this.#date, 1), DISCOUNT_AMOUNT.CHRISTMAS_INCREASE) +
+      DISCOUNT_AMOUNT.CHRISTMAS_BASIC
+    );
   }
 }
 
