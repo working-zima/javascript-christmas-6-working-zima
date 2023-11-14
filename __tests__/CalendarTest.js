@@ -14,7 +14,7 @@ describe('Calendar 클래스', () => {
       { date: 7, expected: false },
     ];
     test.each(week)(
-      '인자로 금요일, 토요일에 해당하는 날짜가 주어진 경우, true를 반환한다.',
+      'Calendar 클래스의 인자로 금요일, 토요일에 해당하는 날짜가 주어진 경우, true를 반환한다.',
       ({ date, expected }) => {
         // when
         const calendar = new Calendar(date);
@@ -38,7 +38,7 @@ describe('Calendar 클래스', () => {
     ];
 
     test.each(specialDays)(
-      '인자로 3, 10, 17, 24, 25, 31이 주어진 경우, true를 반환한다.',
+      'Calendar 클래스의 인자로 3, 10, 17, 24, 25, 31이 주어진 경우, true를 반환한다.',
       ({ date, expected }) => {
         // when
         const calendar = new Calendar(date);
@@ -61,7 +61,7 @@ describe('Calendar 클래스', () => {
 
     // when
     test.each(dates)(
-      '인자로 25이하의 숫자가 주어진 경우, true를 반환한다.',
+      'Calendar 클래스의 인자로 25이하의 숫자가 주어진 경우, true를 반환한다.',
       ({ date, expected }) => {
         // when
         const calendar = new Calendar(date);
@@ -79,7 +79,7 @@ describe('Calendar 클래스', () => {
     const dates = [1, 2, 3, 4, 5, 6, 31];
 
     test.each(dates)(
-      '인자로 특정 날짜가 주어진 경우, "12월 특정 날짜일"을 반환한다.',
+      'Calendar 클래스의 인자로 특정 날짜가 주어진 경우, "12월 특정 날짜일"을 반환한다.',
       date => {
         // when
         const calendar = new Calendar(date);
@@ -101,7 +101,7 @@ describe('Calendar 클래스', () => {
     ];
 
     test.each(christmasDiscountAmount)(
-      '인자로 1부터 25까지 가까워지는 숫자가 주어진 경우, 1,000원으로 시작하여 100원씩 증가된 숫자를 반환한다.',
+      'Calendar 클래스의 인자로 1부터 25까지 가까워지는 숫자가 주어진 경우, 1,000원으로 시작하여 100원씩 증가된 숫자를 반환한다.',
       ({ date, expected }) => {
         // when
         const calendar = new Calendar(date);
